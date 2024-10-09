@@ -4,8 +4,14 @@
   "description": "Learning node.js",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --watch-path=./ index.js"
   },
   "author": "Umut Can Gün",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
 }
