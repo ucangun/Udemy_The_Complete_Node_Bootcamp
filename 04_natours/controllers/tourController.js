@@ -43,7 +43,7 @@ exports.getAllTours = async (req, res) => {
     // 2B) Advanced Filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    console.log(JSON.parse(queryStr));
+    // console.log(JSON.parse(queryStr));
 
     // {difficulty:'easy , duration : {$gte:5} }
 
@@ -52,13 +52,23 @@ exports.getAllTours = async (req, res) => {
     // 2) SORTING
     if (req.query.sort) {
       const sortBy = req.query.sort.split(',').join(' ');
-      console.log(sortBy);
+      // console.log(sortBy);
 
       query = query.sort(sortBy);
       // sort('price', ratingsAverage)
     } else {
       query = query.sort('-createdAt');
     }
+
+    // 3) Field Limiting
+
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query = query.select(fields);
+    } else {
+      query = query.select('-__v');
+    }
+
     // EXECUTE QUERY
 
     const tours = await query;
