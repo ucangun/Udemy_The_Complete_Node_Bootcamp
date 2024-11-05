@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
+/*******************************************************************/
+
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -48,6 +50,8 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+/*******************************************************************/
+
 userSchema.pre('save', async function(next) {
   // Only run this function if password was actually modified
   if (!this.isModified('password')) return next();
@@ -73,6 +77,8 @@ userSchema.pre(/^find/, function(next) {
   next();
 });
 
+/*******************************************************************/
+
 userSchema.methods.correctPassword = async function(
   candidatePassword,
   userPassword
@@ -94,6 +100,8 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   return false;
 };
 
+/*******************************************************************/
+
 userSchema.methods.createPasswordResetToken = function() {
   const resetToken = crypto.randomBytes(32).toString('hex');
 
@@ -108,6 +116,8 @@ userSchema.methods.createPasswordResetToken = function() {
 
   return resetToken;
 };
+
+/*******************************************************************/
 
 const User = mongoose.model('User', userSchema);
 
