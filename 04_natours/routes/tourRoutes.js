@@ -7,14 +7,8 @@ const router = express.Router();
 
 // router.param('id', tourController.checkID);
 
-// old version of the nested route
-// router
-//   .route('/:tourId/reviews')
-//   .post(
-//     authController.protect,
-//     authController.restrictTo('user'),
-//     reviewController.createReview
-//   );
+// POST /tour/234fad4/reviews
+// GET /tour/234fad4/reviews
 
 router.use('/:tourId/reviews', reviewRouter);
 
